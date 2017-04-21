@@ -5,17 +5,14 @@ Configuring Vim Via a Plugin Manager
 ------------------
 
 If you are using a plugin manager, add a line such as the following
-to your `.vimrc` file (or wherever you load bundles). This will
-install [vim-reason-loader](https://github.com/reasonml/vim-reason-loader)
-which is a tiny plugin that will automatically load the
-*real* `VimReason` plugin for you.
+to your `.vimrc` file (or wherever you load bundles).
 
 ```
 " If using NeoBundle(recommended)
-NeoBundle 'reasonml/vim-reason-loader'
+NeoBundle 'chenglou/vim-reason'
 
 " Or, if using Vundle
-Bundle 'reasonml/vim-reason-loader'
+Bundle 'chenglou/vim-reason'
 ```
 Install a `Reason` Toolchain.
 ------------------
@@ -23,60 +20,6 @@ If you haven't already began the process of installing `Reason`, follow the
 [latest
 instructions](https://github.com/facebook/Reason/blob/master/README.md#install-via-npm).
 
-
-More Details about `vim-reason-loader`
----------------------
-`vim-reason-loader` is great because it will always load the editor plugin itself
-from wherever `ocamlmerlin` and `refmt` are installed in your `PATH`. That means
-that you always have your plugin in sync with your project's dependencies
-on Merlin/Reason. If you have to projects that have two different versions of Reason,
-then the editing experience will be in sync with the version of Reason you are using
-(assuming you ensure your `PATH` contains your project's version of `Reason`).
-
-You should be using a Vim plugin manager like `Vundle`, `NeoBundle` or something else.
-If not, skip to the bottom of this doc to configure Vim manually.
-
-
-Make Vim Awesome:
-============
-
-The rest of this document suggests some ways to configure Vim to make the most
-of `Reason`, `merlin`, and other editor features.
-
-[VimBox](https://github.com/jordwalke/vimbox) is one great way to get started
-with a modern Vim configuration. For example, the plugins it uses will enable
-autocompletion when hitting the "." key after module names etc. If building up
-your own Vim configuration, you will likely want a good Vim plugin manager such
-as [`NeoBundle`](https://github.com/Shougo/neobundle.vim) or `Vundle`, to
-install various plugins. The rest of the docs will assume we're using
-`NeoBundle`.
-
-Autocomplete
-==========
-
-If you installed `VimBox`, autocomplete is already set up to work like a modern
-IDE. Inside of a `.re` file, type `String` followed by a `.` and you will see
-the autocomplete window automatically pop up (hit enter to accept). If not
-using `VimBox`, Vim makes you press the bizarre key combination (`c-x c-u`) to
-trigger autocomplete. As always, make sure to add the right
-[Merlin](https://github.com/the-lambda-church/merlin) flags to your `.merlin`
-file so that your build artifacts and source files can be found.
-
-
-Syntastic Integration:
-==========
-
-If you installed `VimBox`, Syntastic is already installed and errors will be
-underlined in red. If you didn't install `VimBox`, install `Syntastic` by
-putting this command in the appropriate place:
-
-```vim
-NeoBundle "scrooloose/syntastic"
-```
-
-When you save any `.re`/`.rei` file, syntax errors and compile errors will be
-shown in the location list window and the lines with errors will be underlined
-in red.
 
 Formatting:
 ===========
