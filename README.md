@@ -1,5 +1,7 @@
-VimReason: Vim support for Reason/OCaml
+Vim support for Reason/OCaml
 =========================================
+
+This is a version of [Reason](http://facebook.github.io/reason/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](http://facebook.github.io/reason/jsWorkflow.html#javascript-workflow-editor-setup-global-utilities).
 
 Installing
 ------------------
@@ -17,14 +19,7 @@ Bundle 'chenglou/vim-reason'
 Plug 'chenglou/vim-reason'
 ```
 
-Install a `Reason` Toolchain.
-------------------
-If you haven't already began the process of installing `Reason`, follow the
-[latest
-instructions](http://facebook.github.io/reason/tools.html#tools-command-line-utilities).
-
-
-Formatting:
+Formatting
 ===========
 
 The command `:ReasonPrettyPrint` invokes the binary `refmt` which must be available on your `PATH`.
