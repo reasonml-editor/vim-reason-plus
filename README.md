@@ -60,6 +60,7 @@ Merlin
 ===========
 We come with [Merlin] support by default. You can check the features [here](https://github.com/ocaml/merlin/wiki/vim-from-scratch#discovering-the-shiny-features). Skip the installation procedure in that page; this plugin doesn't use it.
 
+[Syntastic](https://github.com/vim-syntastic/syntastic) support is unobstructedly enabled here by default.
 
 LICENSE
 -------
