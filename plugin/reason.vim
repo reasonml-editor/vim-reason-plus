@@ -20,6 +20,9 @@ else
   let g:syntastic_extra_filetypes = ['reason']
 endif
 
+" syntastic. Enabled by default, no-op when syntastic isn't present
+let g:syntastic_reason_checkers=['merlin']
+
 " From auto-format plugin:
 " https://github.com/Chiel92/vim-autoformat/blob/master/plugin/autoformat.vim
 let g:vimreason_reason = "refmt"
