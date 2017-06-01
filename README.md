@@ -10,13 +10,13 @@ If you are using a plugin manager, add a line such as the following to your `.vi
 
 ```
 " If using NeoBundle
-NeoBundle 'chenglou/vim-reason'
+NeoBundle 'reasonml/vim-reason'
 
 " Or, if using Vundle
-Bundle 'chenglou/vim-reason'
+Bundle 'reasonml/vim-reason'
 
 " Or, if using Vim-Plug
-Plug 'chenglou/vim-reason'
+Plug 'reasonml/vim-reason'
 ```
 
 Formatting
