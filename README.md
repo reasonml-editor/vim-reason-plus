@@ -60,7 +60,7 @@ Merlin
 ===========
 We come with [Merlin] support by default. You can check the features [here](https://github.com/ocaml/merlin/wiki/vim-from-scratch#discovering-the-shiny-features). Skip the installation procedure in that page; this plugin doesn't use it.
 
-[Syntastic](https://github.com/vim-syntastic/syntastic) support is unobstructedly enabled here by default.
+[Syntastic](https://github.com/vim-syntastic/syntastic) support is unobstructedly enabled here by default. [Neomake](https://github.com/neomake/neomake) support can be enabled by setting `let g:neomake_reason_enabled_makers = ['merlin']`.
 
 LICENSE
 -------
