@@ -1,7 +1,7 @@
 Vim support for Reason/OCaml
 =========================================
 
-This is a version of [Reason](http://facebook.github.io/reason/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](http://facebook.github.io/reason/jsWorkflow.html#javascript-workflow-editor-setup-global-utilities).
+This is a version of [Reason](http://facebook.github.io/reason/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](http://facebook.github.io/reason/gettingStarted.html#getting-started-editor-setup-global-utilities).
 
 Installing
 ------------------
@@ -10,13 +10,13 @@ If you are using a plugin manager, add a line such as the following to your `.vi
 
 ```
 " If using NeoBundle
-NeoBundle 'reasonml/vim-reason'
+NeoBundle 'reasonml-editor/vim-reason'
 
 " Or, if using Vundle
-Bundle 'reasonml/vim-reason'
+Bundle 'reasonml-editor/vim-reason'
 
 " Or, if using Vim-Plug
-Plug 'reasonml/vim-reason'
+Plug 'reasonml-editor/vim-reason'
 ```
 
 Formatting
