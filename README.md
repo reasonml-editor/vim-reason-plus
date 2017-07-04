@@ -1,10 +1,8 @@
-Vim support for Reason/OCaml
-=========================================
+# Vim support for Reason/OCaml
 
 This is a version of [Reason](http://facebook.github.io/reason/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](http://facebook.github.io/reason/gettingStarted.html#getting-started-editor-setup-global-utilities).
 
-Installing
-------------------
+## Installing
 
 If you are using a plugin manager, add a line such as the following to your `.vimrc`:
 
@@ -19,8 +17,7 @@ Bundle 'reasonml-editor/vim-reason'
 Plug 'reasonml-editor/vim-reason'
 ```
 
-Formatting
-===========
+## Formatting
 
 The command `:ReasonPrettyPrint` invokes the binary `refmt` which must be available on your `PATH`.
 
@@ -41,8 +38,7 @@ let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "winwidth('.')
 let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([120, winwidth('.')])"
 ```
 
-Key Mappings
-=============
+## Key Mappings
 
 You can create a custom function and map it to a keybinding (in your `.vimrc`)
 to quickly trigger formatting, and control how the formatting occurs. To enable
@@ -56,12 +52,17 @@ a `reason` file.
 autocmd FileType reason map <buffer> <D-M> :ReasonPrettyPrint<Cr>
 ```
 
-Merlin
-===========
+## Merlin
+
 We come with [Merlin] support by default. You can check the features [here](https://github.com/ocaml/merlin/wiki/vim-from-scratch#discovering-the-shiny-features). Skip the installation procedure in that page; this plugin doesn't use it.
 
 [Syntastic](https://github.com/vim-syntastic/syntastic) support is unobstructedly enabled here by default. [Neomake](https://github.com/neomake/neomake) support can be enabled by setting `let g:neomake_reason_enabled_makers = ['merlin']`.
 
-LICENSE
--------
+
+## Contributing
+
+Lots of content in the repo is copy pasted from https://github.com/ocaml/merlin/tree/v2.5.4/vim/merlin, with a few Reason-specific files added. We'll track master once Reason's global tooling uses the newest Merlin. Until then, since that release branch isn't adding retroactive fixes, there's nothing to sync anymore. You can always submit these Reason files to Merlin or something.
+
+## LICENSE
+
 Some files from VimReason are based on the Rust vim plugin and so we are including that license.
