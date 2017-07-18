@@ -1,6 +1,6 @@
 # Vim support for Reason/OCaml
 
-This is a version of [Reason](http://facebook.github.io/reason/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](http://facebook.github.io/reason/gettingStarted.html#getting-started-editor-setup-global-utilities).
+This is a version of [Reason](http://reasonml.github.io/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](https://reasonml.github.io/guide/editor-setup).
 
 ## Installing
 
