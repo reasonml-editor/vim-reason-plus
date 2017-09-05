@@ -2,7 +2,7 @@
 
 ![vim-reason](https://user-images.githubusercontent.com/1909539/28570945-3bef8f46-70f5-11e7-9809-8c3282d350c5.png)
 
-This is a version of [Reason](http://reasonml.github.io/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](https://reasonml.github.io/guide/editor-setup).
+This is a version of [Reason](http://reasonml.github.io/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](https://reasonml.github.io/guide/editor-tools/global-installation).
 
 ## Installing
 
