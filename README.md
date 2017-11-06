@@ -40,4 +40,4 @@ See its guide on calling the available features and assigning shortcuts to them,
 
 ## LICENSE
 
-Some files from VimReason are based on the Rust vim plugin and so we are including that license.
+Some files from vim-reason-plus are based on the Rust vim plugin and so we are including that license.
