@@ -1,10 +1,8 @@
 # Vim support for Reason/OCaml
 
-This is a version of [Reason](http://reasonml.github.io/) Vim editor integration without needing OPAM or dynamically loading the plugin. The only things you need are the 3 binaries described [here](https://reasonml.github.io/guide/editor-tools/global-installation).
-
 ## Prerequisite
 
-You'll need either Vim with Python 3 support, or Neovim. If you're on Vim with Python 2, please use our [old plugin](https://github.com/reasonml-editor/vim-reason).
+You'll need either Vim with Python 3 support, or Neovim. If you're on Vim with Python 2, please use our [old plugin](https://github.com/reasonml-editor/vim-reason-legacy).
 
 ## Features
 
