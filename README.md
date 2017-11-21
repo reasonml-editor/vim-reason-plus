@@ -36,6 +36,18 @@ If the Quick Start instructions didn't work, make sure you read the [complete in
 
 See its guide on calling the available features and assigning shortcuts to them, e.g. `LanguageClient_textDocument_definition`.
 
+## Configuration
+
+Please follow [LanguageClient-neovim's documentation on how to configure features](https://github.com/autozimu/LanguageClient-neovim/blob/db1a3cfca09dbfd4350fe04c10084194d77cca1c/doc/LanguageClient.txt#L199). Here's an example configuration you'd put in `.vimrc`:
+
+```
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+```
+
+Triggering `gf` in normal mode would format the buffer.
+
 ## LICENSE
 
 Some files from vim-reason-plus are based on the Rust vim plugin and so we are including that license.
