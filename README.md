@@ -32,6 +32,12 @@ let g:LanguageClient_serverCommands = {
     \ }
 ```
 
+You'll also need to install `ocaml-language-server` globally, so the Language Client can start it from the editor:
+
+```
+npm install -g ocaml-language-server
+```
+
 If the Quick Start instructions didn't work, make sure you read the [complete installation guide](https://github.com/autozimu/LanguageClient-neovim/blob/master/INSTALL.md). It's probably a Python issue.
 
 See its guide on calling the available features and assigning shortcuts to them, e.g. `LanguageClient_textDocument_definition`.
