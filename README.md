@@ -8,7 +8,7 @@ You'll need either Vim with Python 3 support, or Neovim. If you're on Vim with P
 
 This plugin simply uses our [language server](https://github.com/freebroccolo/ocaml-language-server#server-capabilities). Every feature is supported. Additionally, we provide the basics: snippets and syntax highlighting.
 
-**Note** v1.0.26 of ocaml-language-server might have a problem currently. v1.0.16 is tested to work. Please use that version instead!
+**Note** v1.0.26 of ocaml-language-server might have a problem currently. v1.0.23 is tested to work. Please use that version instead!
 
 ## Installing
 
