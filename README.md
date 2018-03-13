@@ -54,6 +54,11 @@ nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
 
 Triggering `gf` in normal mode would format the buffer.
 
+If you want the buffer to be auto-formatted on save, try adding:
+```
+autocmd BufWritePre *.re,*.rei,*.ml,*.mli call LanguageClient_textDocument_formatting()
+```
+
 ## LICENSE
 
 Some files from vim-reason-plus are based on the Rust vim plugin and so we are including that license.
