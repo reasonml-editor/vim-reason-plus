@@ -32,6 +32,8 @@ let g:LanguageClient_serverCommands = {
     \ }
 ```
 
+You'll need to install the [global binaries](https://reasonml.github.io/docs/en/global-installation.html).
+
 You'll also need to install `ocaml-language-server` globally, so the Language Client can start it from the editor:
 
 ```
