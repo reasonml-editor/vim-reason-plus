@@ -17,7 +17,7 @@ If you are using a plugin manager, add a line such as the following to your `.vi
 NeoBundle 'reasonml-editor/vim-reason-plus'
 
 " Or, if using Vundle
-Bundle 'reasonml-editor/vim-reason-plus'
+Plugin 'reasonml-editor/vim-reason-plus'
 
 " Or, if using Vim-Plug
 Plug 'reasonml-editor/vim-reason-plus'
