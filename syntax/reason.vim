@@ -14,7 +14,7 @@ endif
 
 " Syntax definitions {{{1
 " Basic keywords {{{2
-syn keyword   rustConditional switch match if else for in
+syn keyword   rustConditional switch match if else for in when
 syn keyword   rustOperator    as
 
 syn match     rustAssert      "\<assert\(\w\)*!" contained
