@@ -70,6 +70,8 @@ let g:deoplete#enable_at_startup = 1
 
 To install those, do `:PlugClean`, `:PlugInstall`, `:PlugUpdate` then `:UpdateRemotePlugins` (for neovim). This seems contrived, but folks often forget to properly setup their plugins, so we're not taking changes with the instructions here.
 
+If you're doing native development, instead of reason-language-server, you can try [ocaml-language-server](https://github.com/freebroccolo/ocaml-language-server#installation-1).
+
 ## Bonus Language Server Configuration
 
 Please follow [LanguageClient-neovim's documentation on how to configure features](https://github.com/autozimu/LanguageClient-neovim/blob/dd45e31449511152f2127fe862d955237caa130f/doc/LanguageClient.txt#L199). Here's an example configuration:
