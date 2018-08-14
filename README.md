@@ -1,50 +1,78 @@
-# Vim support for Reason/OCaml
+# Vim/Neovim support for [Reason](http://reasonml.github.io)
+
+To have the complete Vim/Neovim Reason experience, there are two plugins to install: this one, and [language-server](https://github.com/jaredly/reason-language-server).
+
+This one provides syntax highlight, snippets for Reason and allows related features to recognize the Reason syntax.
+
+Language-server provides all the others (autocompletion, type hint, jump-to-definition, etc.).
 
 ## Prerequisite
 
-You'll need either Vim with Python 3 support, or Neovim. If you're on Vim with Python 2, please use our [old plugin](https://github.com/reasonml-editor/vim-reason-legacy).
+You'll need either Vim with Python 3 support, or Neovim.
 
-## Features
+## This Plugin's Installation
 
-This plugin simply uses our [language server](https://github.com/freebroccolo/ocaml-language-server#server-capabilities). Every feature is supported. Additionally, we provide the basics: snippets and syntax highlighting.
-
-## Installing
-
-If you are using a plugin manager, add a line such as the following to your `.vimrc`:
+If you are using a plugin manager, add a line such as the following to your `.vimrc` (or `~/.config/nvim/init.vim` for neovim):
 
 ```
-" If using NeoBundle
+" If using Vim-Plug (recommended. Install from https://github.com/junegunn/vim-plug)
+Plug 'reasonml-editor/vim-reason-plus'
+
+" Or, using NeoBundle
 NeoBundle 'reasonml-editor/vim-reason-plus'
 
-" Or, if using Vundle
+" Or, using Vundle
 Plugin 'reasonml-editor/vim-reason-plus'
-
-" Or, if using Vim-Plug
-Plug 'reasonml-editor/vim-reason-plus'
 ```
 
-You also need to install Vim/NeoVim's [Language Client](https://github.com/autozimu/LanguageClient-neovim). Do follow its "Quick Start" section. The Reason configuration for that section is the following:
+## Language Server Installation
+
+See https://github.com/jaredly/reason-language-server#vim for language-server installation and configuration.
+
+You also need to install Vim/NeoVim's [Language Client](https://github.com/autozimu/LanguageClient-neovim). Please follow its [Quick Start](https://github.com/autozimu/LanguageClient-neovim#quick-start) for configurations.
+
+Here's a complete configuration in your `~/.vimrc` (or `~/.config/nvim/init.vim` for neovim), assuming you use the [vim-plug](https://github.com/junegunn/vim-plug) package manager.
 
 ```viml
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'ocaml': ['ocaml-language-server', '--stdio'],
+call plug#begin('~/.vim/plugged')
+
+Plug 'reasonml-editor/vim-reason-plus'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
     \ }
+
+" for neovim
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" for vim 8 with python
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  " the path to python3 is obtained through executing `:echo exepath('python3')` in vim
+  let g:python3_host_prog = "/absolute/path/to/python3"
+endif
+
+" nice to have
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/absolute/path/to/reason-language-server.exe'],
+    \ }
+
+" enable autocomplete
+let g:deoplete#enable_at_startup = 1
 ```
 
-You'll also need to install `ocaml-language-server` globally, so the Language Client can start it from the editor:
+To install those, do `:PlugClean`, `:PlugInstall`, `:PlugUpdate` then `:UpdateRemotePlugins` (for neovim). This seems contrived, but folks often forget to properly setup their plugins, so we're not taking changes with the instructions here.
 
-```
-npm install -g ocaml-language-server
-```
+## Bonus Language Server Configuration
 
-If the Quick Start instructions didn't work, make sure you read the [complete installation guide](https://github.com/autozimu/LanguageClient-neovim/blob/master/INSTALL.md). It's probably a Python issue.
-
-See its guide on calling the available features and assigning shortcuts to them, e.g. `LanguageClient_textDocument_definition`.
-
-## Configuration
-
-Please follow [LanguageClient-neovim's documentation on how to configure features](https://github.com/autozimu/LanguageClient-neovim/blob/db1a3cfca09dbfd4350fe04c10084194d77cca1c/doc/LanguageClient.txt#L199). Here's an example configuration you'd put in `.vimrc`:
+Please follow [LanguageClient-neovim's documentation on how to configure features](https://github.com/autozimu/LanguageClient-neovim/blob/dd45e31449511152f2127fe862d955237caa130f/doc/LanguageClient.txt#L199). Here's an example configuration:
 
 ```
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
@@ -52,8 +80,4 @@ nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
 ```
 
-Triggering `gf` in normal mode would format the buffer.
-
-## LICENSE
-
-Some files from vim-reason-plus are based on the Rust vim plugin and so we are including that license.
+Now, for example, triggering `gf` in normal mode would format the code.
