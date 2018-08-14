@@ -22,7 +22,7 @@ syn match     rustPanic       "\<panic\(\w\)*!" contained
 syn keyword   rustKeyword     box nextgroup=rustBoxPlacement skipwhite skipempty
 syn keyword   rustKeyword     extern nextgroup=rustExternCrate,rustObsoleteExternMod skipwhite skipempty
 " syn keyword   rustKeyword     fun nextgroup=rustFuncName skipwhite skipempty
-syn keyword   rustKeyword     unsafe where while
+syn keyword   rustKeyword     unsafe where while lazy
 syn keyword   rustStorage     and class constraint exception external include inherit let method module nonrec open private rec type val with
 " FIXME: Scoped impl's name is also fallen in this category
 " syn keyword   rustStorageIdent   let and module type nextgroup=rustIdentifier skipwhite skipempty
