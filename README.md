@@ -1,6 +1,6 @@
 # Vim/Neovim support for [Reason](http://reasonml.github.io)
 
-To have the complete Vim/Neovim Reason experience, there are two plugins to install: this one, and [language-server](https://github.com/jaredly/reason-language-server).
+To have the complete Vim/Neovim Reason experience, there are two plugins to install: this one, and the [language-server](https://github.com/jaredly/reason-language-server).
 
 This one provides syntax highlight, snippets for Reason and allows related features to recognize the Reason syntax.
 
@@ -68,9 +68,10 @@ let g:LanguageClient_serverCommands = {
 let g:deoplete#enable_at_startup = 1
 ```
 
-To install those, do `:PlugClean`, `:PlugInstall`, `:PlugUpdate` then `:UpdateRemotePlugins` (for neovim). This seems contrived, but folks often forget to properly setup their plugins, so we're not taking changes with the instructions here.
+To install those, do `:PlugClean`, `:PlugInstall`, `:PlugUpdate` then `:UpdateRemotePlugins` (for neovim). This may seem contrived, but folks often forget to properly setup their plugins, so we're not taking chances with the instructions here.
 
-If you're doing native development, instead of reason-language-server, you can try [ocaml-language-server](https://github.com/freebroccolo/ocaml-language-server#installation-1).
+Reason-language-server currently only supports BuckleScript and OCaml 4.02.3 as compiler backends.
+For native development using OCaml 4.03 or later, you should prefer [ocaml-language-server](https://github.com/freebroccolo/ocaml-language-server#installation-1).
 
 ## Bonus Language Server Configuration
 
