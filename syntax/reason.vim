@@ -212,7 +212,7 @@ hi def link rustConstant      Constant
 hi def link rustSelf          Constant
 hi def link rustFloat         Float
 hi def link rustArrowCharacter rustOperator
-hi def link rustOperator      Keyword
+hi def link rustOperator      Operator
 hi def link rustKeyword       Keyword
 hi def link rustReservedKeyword Error
 hi def link rustConditional   StorageClass
