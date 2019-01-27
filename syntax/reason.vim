@@ -214,7 +214,7 @@ hi def link reasonFloat         Float
 hi def link reasonArrowCharacter reasonOperator
 hi def link reasonOperator      Keyword
 hi def link reasonKeyword       Keyword
-hi def link reasonReservedKeyword Error
+hi def link reasonReservedKeyword Keyword
 hi def link reasonConditional   StorageClass
 hi def link reasonIdentifier    Identifier
 hi def link reasonCapsIdent     reasonIdentifier
