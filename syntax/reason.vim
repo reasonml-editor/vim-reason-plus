@@ -38,7 +38,7 @@ syn match     rustFuncName    "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%
 syn match labelArgument "\(\l\|_\)\(\w\|'\)*::\(?\)\?"lc=0   "Allows any space between label name and ::
 syn match labelArgumentPunned "::\(?\)\?\(\l\|_\)\(\w\|'\)*"lc=0   "Allows any space between label name and ::
 
-syn match    rustEnumVariant  "\<\u\(\w\|'\)*\>[^\.]"me=e-1
+syn match    rustEnumVariant  "\<\u\(\w\|'\)*\>"
 " Polymorphic variants
 syn match    rustEnumVariant  "`\w\(\w\|'\)*\>"
 
