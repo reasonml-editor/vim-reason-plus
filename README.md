@@ -78,9 +78,9 @@ For native development using OCaml 4.03 or later, you should prefer [ocaml-langu
 Please follow [LanguageClient-neovim's documentation on how to configure features](https://github.com/autozimu/LanguageClient-neovim/blob/dd45e31449511152f2127fe862d955237caa130f/doc/LanguageClient.txt#L199). Here's an example configuration:
 
 ```
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<cr>
+nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<cr>
+nnoremap <silent> <cr> :call LanguageClient#textDocument_hover()<cr>
 ```
 
 Now, for example, triggering `gf` in normal mode would format the code.
