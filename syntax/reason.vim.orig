@@ -1,10 +1,9 @@
 " Vim syntax file
-" Language:     Reason (Forked from Rust)
-" Maintainer:   (Jordan - for Reason changes) Patrick Walton <pcwalton@mozilla.com>
+" Language:     Rust
+" Maintainer:   Patrick Walton <pcwalton@mozilla.com>
 " Maintainer:   Ben Blum <bblum@cs.cmu.edu>
 " Maintainer:   Chris Morgan <me@chrismorgan.info>
 " Last Change:  January 29, 2015
-" Portions Copyright (c) 2015-present, Facebook, Inc. All rights reserved.
 
 if version < 600
   syntax clear
@@ -14,18 +13,26 @@ endif
 
 " Syntax definitions {{{1
 " Basic keywords {{{2
-syn keyword   reasonConditional switch match if else for in when fun
+syn keyword   reasonConditional match if else
 syn keyword   reasonOperator    as
 
 syn match     reasonAssert      "\<assert\(\w\)*!" contained
 syn match     reasonPanic       "\<panic\(\w\)*!" contained
+syn keyword   reasonKeyword     break
 syn keyword   reasonKeyword     box nextgroup=reasonBoxPlacement skipwhite skipempty
+syn keyword   reasonKeyword     continue
 syn keyword   reasonKeyword     extern nextgroup=reasonExternCrate,reasonObsoleteExternMod skipwhite skipempty
-" syn keyword   reasonKeyword     fun nextgroup=reasonFuncName skipwhite skipempty
-syn keyword   reasonKeyword     unsafe where while lazy
-syn keyword   reasonStorage     and class constraint exception external include inherit let method module nonrec open private rec type val with
+syn keyword   reasonKeyword     fn nextgroup=reasonFuncName skipwhite skipempty
+syn keyword   reasonKeyword     for in if impl let
+syn keyword   reasonKeyword     loop once pub
+syn keyword   reasonKeyword     return super
+syn keyword   reasonKeyword     unsafe virtual where while
+syn keyword   reasonKeyword     use nextgroup=reasonModPath skipwhite skipempty
 " FIXME: Scoped impl's name is also fallen in this category
-" syn keyword   reasonStorageIdent   let and module type nextgroup=reasonIdentifier skipwhite skipempty
+syn keyword   reasonKeyword     mod trait struct enum type nextgroup=reasonIdentifier skipwhite skipempty
+syn keyword   reasonStorage     move mut ref static const
+
+syn keyword   reasonInvalidBareKeyword crate
 
 syn keyword   reasonExternCrate crate contained nextgroup=reasonIdentifier,reasonExternCrateString skipwhite skipempty
 " This is to get the `bar` part of `extern crate "foo" as bar;` highlighting.
@@ -34,18 +41,9 @@ syn keyword   reasonObsoleteExternMod mod contained nextgroup=reasonIdentifier s
 
 syn match     reasonIdentifier  contains=reasonIdentifierPrime "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
 syn match     reasonFuncName    "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
-"
-syn match labelArgument "\(\l\|_\)\(\w\|'\)*::\(?\)\?"lc=0   "Allows any space between label name and ::
-syn match labelArgumentPunned "::\(?\)\?\(\l\|_\)\(\w\|'\)*"lc=0   "Allows any space between label name and ::
-
-syn match    reasonEnumVariant  "\<\u\(\w\|'\)*\>[^\.]"me=e-1
-" Polymorphic variants
-syn match    reasonEnumVariant  "`\w\(\w\|'\)*\>"
-
-syn match    reasonModPath  "\<\u\w*\."
-
 
 syn region    reasonBoxPlacement matchgroup=reasonBoxPlacementParens start="(" end=")" contains=TOP contained
+syn keyword   reasonBoxPlacementExpr GC containedin=reasonBoxPlacement
 " Ideally we'd have syntax rules set up to match arbitrary expressions. Since
 " we don't, we'll just define temporary contained rules to handle balancing
 " delimiters.
@@ -53,16 +51,16 @@ syn region    reasonBoxPlacementBalance start="(" end=")" containedin=reasonBoxP
 syn region    reasonBoxPlacementBalance start="\[" end="\]" containedin=reasonBoxPlacement transparent
 " {} are handled by reasonFoldBraces
 
-
 syn region reasonMacroRepeat matchgroup=reasonMacroRepeatDelimiters start="$(" end=")" contains=TOP nextgroup=reasonMacroRepeatCount
 syn match reasonMacroRepeatCount ".\?[*+]" contained
 syn match reasonMacroVariable "$\w\+"
 
 " Reserved (but not yet used) keywords {{{2
-syn keyword   reasonReservedKeyword alignof become do offsetof priv pure sizeof typeof unsized yield abstract virtual final override macro
+syn keyword   reasonReservedKeyword alignof be do offsetof priv pure sizeof typeof unsized yield abstract final override macro
 
 " Built-in types {{{2
-syn keyword   reasonType        int float option list array unit ref bool string
+syn keyword   reasonType        isize usize float char bool u8 u16 u32 u64 f32
+syn keyword   reasonType        f64 i8 i16 i32 i64 str Self
 
 " Things from the libstd v1 prelude (src/libstd/prelude/v1.rs) {{{2
 " This section is just straight transformation of the contents of the prelude,
@@ -80,24 +78,38 @@ syn keyword   reasonTrait       Drop Fn FnMut FnOnce
 
 " Reexported types and traits {{{3
 syn keyword reasonTrait Box
-syn keyword reasonTrait ToOwned
+syn keyword reasonTrait CharExt
 syn keyword reasonTrait Clone
 syn keyword reasonTrait PartialEq PartialOrd Eq Ord
-syn keyword reasonTrait AsRef AsMut Into From
-syn keyword reasonTrait Default
-syn keyword reasonTrait Iterator Extend IntoIterator
-syn keyword reasonTrait DoubleEndedIterator ExactSizeIterator
+syn keyword reasonTrait DoubleEndedIterator
+syn keyword reasonTrait ExactSizeIterator
+syn keyword reasonTrait Iterator IteratorExt Extend
 syn keyword reasonEnum Option
 syn keyword reasonEnumVariant Some None
+syn keyword reasonTrait PtrExt MutPtrExt
 syn keyword reasonEnum Result
 syn keyword reasonEnumVariant Ok Err
-syn keyword reasonTrait SliceConcatExt
+syn keyword reasonTrait AsSlice
+syn keyword reasonTrait SliceExt SliceConcatExt
+syn keyword reasonTrait Str StrExt
 syn keyword reasonTrait String ToString
 syn keyword reasonTrait Vec
+" FIXME: remove when path reform lands
+syn keyword reasonTrait Path GenericPath
+" FIXME: remove when I/O reform lands
+syn keyword reasonTrait Buffer Writer Reader Seek BufferPrelude
 
 " Other syntax {{{2
 syn keyword   reasonSelf        self
 syn keyword   reasonBoolean     true false
+
+" If foo::bar changes to foo.bar, change this ("::" to "\.").
+" If foo::bar changes to Foo::bar, change this (first "\w" to "\u").
+syn match     reasonModPath     "\w\(\w\)*::[^<]"he=e-3,me=e-3
+syn match     reasonModPathSep  "::"
+
+syn match     reasonFuncCall    "\w\(\w\)*("he=e-1,me=e-1
+syn match     reasonFuncCall    "\w\(\w\)*::<"he=e-3,me=e-3 " foo::<T>();
 
 " This is merely a convention; note also the use of [A-Z], restricting it to
 " latin identifiers rather than the full Unicode uppercase. I have not used
@@ -106,20 +118,21 @@ syn keyword   reasonBoolean     true false
 
 syn match     reasonOperator     display "\%(+\|-\|/\|*\|=\|\^\|&\||\|!\|>\|<\|%\)=\?"
 " This one isn't *quite* right, as we could have binary-& with a reference
-
+syn match     reasonSigil        display /&\s\+[&~@*][^)= \t\r\n]/he=e-1,me=e-1
+syn match     reasonSigil        display /[&~@*][^)= \t\r\n]/he=e-1,me=e-1
 " This isn't actually correct; a closure with no arguments can be `|| { }`.
 " Last, because the & in && isn't a sigil
 syn match     reasonOperator     display "&&\|||"
-" This is reasonArrowCharacter rather than reasonArrow for the sake of matchparen,
-" so it skips the ->; see http://stackoverflow.com/a/30309949 for details.
-syn match     reasonArrowCharacter display "=>"
+syn match     reasonArrow        display "->"
+
+syn match     reasonMacro       '\w\(\w\)*!' contains=reasonAssert,reasonPanic
+syn match     reasonMacro       '#\w\(\w\)*' contains=reasonAssert,reasonPanic
 
 syn match     reasonEscapeError   display contained /\\./
 syn match     reasonEscape        display contained /\\\([nrt0\\'"]\|x\x\{2}\)/
 syn match     reasonEscapeUnicode display contained /\\\(u\x\{4}\|U\x\{8}\)/
 syn match     reasonEscapeUnicode display contained /\\u{\x\{1,6}}/
 syn match     reasonStringContinuation display contained /\\\n\s*/
-syn region    reasonString      start='{j|' end='|j}' contains=reasonMacroVariable,@Spell
 syn region    reasonString      start=+b"+ skip=+\\\\\|\\"+ end=+"+ contains=reasonEscape,reasonEscapeError,reasonStringContinuation
 syn region    reasonString      start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=reasonEscape,reasonEscapeUnicode,reasonEscapeError,reasonStringContinuation,@Spell
 syn region    reasonString      start='b\?r\z(#*\)"' end='"\z1' contains=@Spell
@@ -131,10 +144,10 @@ syn region    reasonDerive      start="derive(" end=")" contained contains=reaso
 syn keyword   reasonDeriveTrait contained Clone Hash RustcEncodable RustcDecodable Encodable Decodable PartialEq Eq PartialOrd Ord Rand Show Debug Default FromPrimitive Send Sync Copy
 
 " Number literals
-syn match     reasonDecNumber   display "\<[0-9][0-9_]*\%([iu]\%(size\|8\|16\|32\|64\)\)\="
-syn match     reasonHexNumber   display "\<0x[a-fA-F0-9_]\+\%([iu]\%(size\|8\|16\|32\|64\)\)\="
-syn match     reasonOctNumber   display "\<0o[0-7_]\+\%([iu]\%(size\|8\|16\|32\|64\)\)\="
-syn match     reasonBinNumber   display "\<0b[01_]\+\%([iu]\%(size\|8\|16\|32\|64\)\)\="
+syn match     reasonDecNumber   display "\<[0-9][0-9_]*\%([iu]\%(s\|8\|16\|32\|64\)\)\="
+syn match     reasonHexNumber   display "\<0x[a-fA-F0-9_]\+\%([iu]\%(s\|8\|16\|32\|64\)\)\="
+syn match     reasonOctNumber   display "\<0o[0-7_]\+\%([iu]\%(s\|8\|16\|32\|64\)\)\="
+syn match     reasonBinNumber   display "\<0b[01_]\+\%([iu]\%(s\|8\|16\|32\|64\)\)\="
 
 " Special case for numbers of the form "1." which are float literals, unless followed by
 " an identifier, which makes them integer literals with a method call or field access,
@@ -148,14 +161,18 @@ syn match     reasonFloat       display "\<[0-9][0-9_]*\%(\.[0-9][0-9_]*\)\=\%([
 syn match     reasonFloat       display "\<[0-9][0-9_]*\%(\.[0-9][0-9_]*\)\=\%([eE][+-]\=[0-9_]\+\)\=\(f32\|f64\)"
 
 " For the benefit of delimitMate
+syn region reasonLifetimeCandidate display start=/&'\%(\([^'\\]\|\\\(['nrt0\\\"]\|x\x\{2}\|u\x\{4}\|U\x\{8}\)\)'\)\@!/ end=/[[:cntrl:][:space:][:punct:]]\@=\|$/ contains=reasonSigil,reasonLifetime
+syn region reasonGenericRegion display start=/<\%('\|[^[cntrl:][:space:][:punct:]]\)\@=')\S\@=/ end=/>/ contains=reasonGenericLifetimeCandidate
+syn region reasonGenericLifetimeCandidate display start=/\%(<\|,\s*\)\@<='/ end=/[[:cntrl:][:space:][:punct:]]\@=\|$/ contains=reasonSigil,reasonLifetime
 
+"reasonLifetime must appear before reasonCharacter, or chars will get the lifetime highlighting
+syn match     reasonLifetime    display "\'\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*"
 syn match   reasonCharacterInvalid   display contained /b\?'\zs[\n\r\t']\ze'/
 " The groups negated here add up to 0-255 but nothing else (they do not seem to go beyond ASCII).
 syn match   reasonCharacterInvalidUnicode   display contained /b'\zs[^[:cntrl:][:graph:][:alnum:][:space:]]\ze'/
 syn match   reasonCharacter   /b'\([^\\]\|\\\(.\|x\x\{2}\)\)'/ contains=reasonEscape,reasonEscapeError,reasonCharacterInvalid,reasonCharacterInvalidUnicode
 syn match   reasonCharacter   /'\([^\\]\|\\\(.\|x\x\{2}\|u\x\{4}\|U\x\{8}\|u{\x\{1,6}}\)\)'/ contains=reasonEscape,reasonEscapeUnicode,reasonEscapeError,reasonCharacterInvalid
 
-syn match reasonShebang /\%^#![^[].*/
 syn region reasonCommentLine                                        start="//"                      end="$"   contains=reasonTodo,@Spell
 syn region reasonCommentLineDoc                                     start="//\%(//\@!\|!\)"         end="$"   contains=reasonTodo,@Spell
 syn region reasonCommentBlock    matchgroup=reasonCommentBlock        start="/\*\%(!\|\*[*/]\@!\)\@!" end="\*/" contains=reasonTodo,reasonCommentBlockNest,@Spell
@@ -182,8 +199,6 @@ syn keyword reasonTodo contained TODO FIXME XXX NB NOTE
 syn region reasonFoldBraces start="{" end="}" transparent fold
 
 " Default highlighting {{{1
-hi def link labelArgument       Special
-hi def link labelArgumentPunned Special
 hi def link reasonDecNumber       reasonNumber
 hi def link reasonHexNumber       reasonNumber
 hi def link reasonOctNumber       reasonNumber
@@ -195,6 +210,7 @@ hi def link reasonDeriveTrait     reasonTrait
 hi def link reasonMacroRepeatCount   reasonMacroRepeatDelimiters
 hi def link reasonMacroRepeatDelimiters   Macro
 hi def link reasonMacroVariable Define
+hi def link reasonSigil         StorageClass
 hi def link reasonEscape        Special
 hi def link reasonEscapeUnicode reasonEscape
 hi def link reasonEscapeError   Error
@@ -206,43 +222,48 @@ hi def link reasonCharacter     Character
 hi def link reasonNumber        Number
 hi def link reasonBoolean       Boolean
 hi def link reasonEnum          reasonType
-hi def link reasonEnumVariant   Function
-hi def link reasonModPath       Macro
+hi def link reasonEnumVariant   reasonConstant
 hi def link reasonConstant      Constant
 hi def link reasonSelf          Constant
 hi def link reasonFloat         Float
-hi def link reasonArrowCharacter reasonOperator
-hi def link reasonOperator      Keyword
+hi def link reasonArrow         reasonOperator
+hi def link reasonOperator      Operator
 hi def link reasonKeyword       Keyword
-hi def link reasonReservedKeyword Keyword
-hi def link reasonConditional   StorageClass
+hi def link reasonReservedKeyword Error
+hi def link reasonConditional   Conditional
 hi def link reasonIdentifier    Identifier
 hi def link reasonCapsIdent     reasonIdentifier
+hi def link reasonModPath       Include
+hi def link reasonModPathSep    Delimiter
 hi def link reasonFunction      Function
 hi def link reasonFuncName      Function
-hi def link reasonShebang       Comment
+hi def link reasonFuncCall      Function
 hi def link reasonCommentLine   Comment
-hi def link reasonCommentLineDoc Comment
+hi def link reasonCommentLineDoc SpecialComment
 hi def link reasonCommentBlock  reasonCommentLine
 hi def link reasonCommentBlockDoc reasonCommentLineDoc
 hi def link reasonAssert        PreCondit
 hi def link reasonPanic         PreCondit
+hi def link reasonMacro         Macro
 hi def link reasonType          Type
 hi def link reasonTodo          Todo
 hi def link reasonAttribute     PreProc
 hi def link reasonDerive        PreProc
-hi def link reasonStorage       Conditional
-hi def link reasonStorageIdent StorageClass
+hi def link reasonStorage       StorageClass
 hi def link reasonObsoleteStorage Error
+hi def link reasonLifetime      Special
+hi def link reasonInvalidBareKeyword Error
 hi def link reasonExternCrate   reasonKeyword
 hi def link reasonObsoleteExternMod Error
 hi def link reasonBoxPlacementParens Delimiter
+hi def link reasonBoxPlacementExpr reasonKeyword
 
 " Other Suggestions:
 " hi reasonAttribute ctermfg=cyan
 " hi reasonDerive ctermfg=cyan
 " hi reasonAssert ctermfg=yellow
 " hi reasonPanic ctermfg=red
+" hi reasonMacro ctermfg=magenta
 
 syn sync minlines=200
 syn sync maxlines=500
