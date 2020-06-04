@@ -119,6 +119,7 @@ syn match     reasonEscape        display contained /\\\([nrt0\\'"]\|x\x\{2}\)/
 syn match     reasonEscapeUnicode display contained /\\\(u\x\{4}\|U\x\{8}\)/
 syn match     reasonEscapeUnicode display contained /\\u{\x\{1,6}}/
 syn match     reasonStringContinuation display contained /\\\n\s*/
+syn region    reasonString      start='{|' end='|}' contains=@Spell
 syn region    reasonString      start='{j|' end='|j}' contains=reasonMacroVariable,@Spell
 syn region    reasonString      start=+b"+ skip=+\\\\\|\\"+ end=+"+ contains=reasonEscape,reasonEscapeError,reasonStringContinuation
 syn region    reasonString      start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=reasonEscape,reasonEscapeUnicode,reasonEscapeError,reasonStringContinuation,@Spell
