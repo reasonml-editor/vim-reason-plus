@@ -122,6 +122,7 @@ syn match     reasonStringContinuation display contained /\\\n\s*/
 syn region    reasonString      start='{j|' end='|j}' contains=reasonMacroVariable,@Spell
 syn region    reasonString      start=+b"+ skip=+\\\\\|\\"+ end=+"+ contains=reasonEscape,reasonEscapeError,reasonStringContinuation
 syn region    reasonString      start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=reasonEscape,reasonEscapeUnicode,reasonEscapeError,reasonStringContinuation,@Spell
+syn region    reasonString      start=+{js|+ skip=+\\\\\|\\"+ end=+|js}+ contains=reasonEscape,reasonEscapeError,reasonStringContinuation,@Spell
 syn region    reasonString      start='b\?r\z(#*\)"' end='"\z1' contains=@Spell
 
 syn region    reasonAttribute   start="#!\?\[" end="\]" contains=reasonString,reasonDerive
