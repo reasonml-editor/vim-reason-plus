@@ -23,12 +23,7 @@ endif
 
 let b:jsx_pretty_old_cms = &l:commentstring
 
-augroup jsx_comment
-  autocmd! CursorMoved <buffer>
-  autocmd CursorMoved <buffer> call jsx_pretty#comment#update_commentstring(b:jsx_pretty_old_cms)
-augroup end
-
-function! jsx_pretty#comment#update_commentstring(original)
+function! s:update_commentstring(original)
   let line = getline(".")
   let col = col('.')
   if line !~# '^\s*$' && line[: col - 1] =~# '^\s*$'    " skip indent
@@ -65,5 +60,9 @@ function! s:syn_contains(lnum, cnum, syn_name)
   let syn_names = map(stack, 'synIDattr(v:val, "name")')
   return index(syn_names, a:syn_name) >= 0
 endfunction
+augroup jsx_comment
+  autocmd! CursorMoved <buffer>
+  autocmd CursorMoved <buffer> call s:update_commentstring(b:jsx_pretty_old_cms)
+augroup end
 
 setlocal suffixesadd+=.jsx
